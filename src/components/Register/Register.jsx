@@ -113,14 +113,7 @@ const RegisterForm = () => {
       // Simulate API call with a timeout
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
-      // Here you would typically make an API call to register the user
-      // For example:
-      // const response = await fetch('/api/register', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // });
-      // if (!response.ok) throw new Error('Registration failed');
+   
 
       setSubmitSuccess(true)
 
