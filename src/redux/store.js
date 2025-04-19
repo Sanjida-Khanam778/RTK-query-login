@@ -1,7 +1,8 @@
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import userReducer from './feature/userSlice'; // nijer slice
-import { api } from './features/api/apiSlice'; // RTK Query apiSlice
+import { api } from './feature/api/apiSlice'; // RTK Query apiSlice
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
     user: userReducer,

@@ -1,8 +1,12 @@
-"use client"
-
+import { useSignupMutation } from "@/src/redux/feature/Api/apiSlice"
+import { setUser } from "@/src/redux/feature/userSlice"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 
 const RegisterForm = () => {
+
+  const dispatch = useDispatch()
+  const [signup] = useSignupMutation()
   // Form state
   const [formData, setFormData] = useState({
     firstName: "",
@@ -111,9 +115,13 @@ const RegisterForm = () => {
 
     try {
       // Simulate API call with a timeout
-      await new Promise((resolve) => setTimeout(resolve, 1500))
 
-   
+      const res = await signup(formData)
+      console.log(res.data)
+      dispatch(setUser(res))
+
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      
 
       setSubmitSuccess(true)
 
