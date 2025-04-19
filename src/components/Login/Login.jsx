@@ -1,58 +1,63 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { useDispatch } from "react-redux";
+import { useLoginMutation } from "@/src/redux/feature/Api/apiSlice";
+import { setUser } from "@/src/redux/feature/userSlice";
 
 export default function LoginForm() {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch();
+  const [login] = useLoginMutation();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     // Basic validation
     if (!email || !password) {
-      setError("Please fill in all fields")
-      setLoading(false)
-      return
+      setError("Please fill in all fields");
+      setLoading(false);
+      return;
     }
 
     try {
-      // Mock authentication - in a real app, you would call your auth API
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Check mock credentials (replace with actual auth logic)
-      if (email === "user@example.com" && password === "password") {
-        // Successful login
-        console.log("Login successful")
-
-        // Redirect to dashboard
-        navigate("/dashboard")
-      } else {
-        setError("Invalid email or password")
-      }
+      const res = await login({ email, password }).unwrap();
+      console.log(res);
+      dispatch(setUser(res));
+      navigate('/')
     } catch (err) {
-      setError("An error occurred. Please try again.")
-      console.error(err)
+      setError("An error occurred. Please try again.");
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Card className="w-1/2 mx-auto">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>Enter your credentials to access your account</CardDescription>
+        <CardDescription>
+          Enter your credentials to access your account
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -82,8 +87,8 @@ export default function LoginForm() {
                 href="#"
                 className="text-sm font-medium text-primary hover:underline"
                 onClick={(e) => {
-                  e.preventDefault()
-                  alert("Password reset functionality would go here")
+                  e.preventDefault();
+                  alert("Password reset functionality would go here");
                 }}
               >
                 Forgot password?
@@ -106,18 +111,18 @@ export default function LoginForm() {
       <CardFooter className="flex justify-center">
         <p className="text-sm text-muted-foreground">
           Don't have an account?{" "}
-          <a
-            href="#"
+          <Link
+            to={"/login"}
             className="font-medium text-primary hover:underline"
             onClick={(e) => {
-              e.preventDefault()
-              navigate("/register")
+              e.preventDefault();
+              navigate("/register");
             }}
           >
             Sign up
-          </a>
+          </Link>
         </p>
       </CardFooter>
     </Card>
-  )
+  );
 }

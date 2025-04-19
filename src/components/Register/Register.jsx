@@ -2,6 +2,7 @@ import { useSignupMutation } from "@/src/redux/feature/Api/apiSlice"
 import { setUser } from "@/src/redux/feature/userSlice"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
 
 const RegisterForm = () => {
 
@@ -9,7 +10,7 @@ const RegisterForm = () => {
   const [signup] = useSignupMutation()
   // Form state
   const [formData, setFormData] = useState({
-    firstName: "",
+    name: "",
     lastName: "",
     email: "",
     password: "",
@@ -18,7 +19,7 @@ const RegisterForm = () => {
 
   // Error state
   const [errors, setErrors] = useState({
-    firstName: "",
+    name: "",
     lastName: "",
     email: "",
     password: "",
@@ -53,11 +54,11 @@ const RegisterForm = () => {
     const newErrors = { ...errors }
 
     // First name validation
-    if (formData.firstName.trim().length < 2) {
-      newErrors.firstName = "First name must be at least 2 characters"
+    if (formData.name.trim().length < 2) {
+      newErrors.name = "First name must be at least 2 characters"
       isValid = false
     } else {
-      newErrors.firstName = ""
+      newErrors.name = ""
     }
 
     // Last name validation
@@ -117,22 +118,20 @@ const RegisterForm = () => {
       // Simulate API call with a timeout
 
       const res = await signup(formData)
-      console.log(res.data)
-      dispatch(setUser(res))
-
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      
+      // console.log(res.data.accessToken, res.data.user, res.data.refreshToken)
+      dispatch(setUser(res.data))      
 
       setSubmitSuccess(true)
 
       // Reset form
       setFormData({
-        firstName: "",
+        name: "",
         lastName: "",
         email: "",
         password: "",
         confirmPassword: "",
       })
+      
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "Registration failed. Please try again.")
     } finally {
@@ -162,21 +161,21 @@ const RegisterForm = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                   First name
                 </label>
                 <input
-                  id="firstName"
-                  name="firstName"
+                  id="name"
+                  name="name"
                   type="text"
-                  value={formData.firstName}
+                  value={formData.name}
                   onChange={handleChange}
                   placeholder="John"
                   className={`w-full px-3 py-2 border rounded-md text-sm ${
-                    errors.firstName ? "border-red-500" : "border-gray-300"
+                    errors.name ? "border-red-500" : "border-gray-300"
                   } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 />
-                {errors.firstName && <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>}
+                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
               </div>
 
               <div className="space-y-2">
@@ -265,9 +264,9 @@ const RegisterForm = () => {
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{" "}
-            <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link to={'/login'} className="font-medium text-primary hover:underline">
               Sign in
-            </a>
+            </Link>
           </p>
         </div>
       </div>
