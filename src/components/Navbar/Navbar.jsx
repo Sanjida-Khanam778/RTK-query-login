@@ -37,14 +37,14 @@ export function NavbarDemo() {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login')
+    navigate("/login");
   };
 
   const user = useSelector((state) => state.user.user);
   console.log(user);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full border-b">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>

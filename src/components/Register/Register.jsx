@@ -131,7 +131,7 @@ const RegisterForm = () => {
         password: "",
         confirmPassword: "",
       })
-      
+
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "Registration failed. Please try again.")
     } finally {
@@ -140,7 +140,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4 bg-gray-50 font-sans">
+    <div className="flex justify-center items-center min-h-[calc(100vh-60px)] p-4 bg-gray-50 font-sans">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-6 border-b border-gray-200">
           <h2 className="text-2xl font-bold text-center text-gray-800">Create an account</h2>

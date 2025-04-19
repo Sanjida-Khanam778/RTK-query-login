@@ -52,7 +52,8 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className="w-1/2 mx-auto">
+  <div className="min-h-[calc(100vh-100px)] flex justify-center items-center">
+      <Card className="w-1/2 mx-auto">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
@@ -124,5 +125,6 @@ export default function LoginForm() {
         </p>
       </CardFooter>
     </Card>
+  </div>
   );
 }
