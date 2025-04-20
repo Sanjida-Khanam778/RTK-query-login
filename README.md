@@ -25,20 +25,15 @@ RTK Query is a powerful data fetching and caching tool that comes with Redux Too
 ---
 
 ## 🧩 Folder Structure
-
+```
 src/
-
 ├── app/               # Redux store configuration
-
 ├── features/     
-
- │   ├── api/           # RTK Query API slice
-
- │   └── users/         # Feature-specific logic (optional)
-
+│   ├── api/           # RTK Query API slice
+│   └── users/         # Feature-specific logic (optional)
 ├── components/        # Reusable UI components
-
 └── App.tsx            # Root component of the application
+```
 
 ---
 
