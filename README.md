@@ -73,7 +73,3 @@ For full documentation and advanced features, visit the official docs:
 
 ---
 
-## 👩‍💻 Author
-
-**Sanjida Khanam**  
-Frontend Developer
