@@ -44,7 +44,7 @@ export function NavbarDemo() {
   console.log(user);
 
   return (
-    <div className="relative w-full border-b">
+    <div className="relative w-full z-10 sticky top-0">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
